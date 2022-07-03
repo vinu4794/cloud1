@@ -1,33 +1,82 @@
-<h1>Cloud Assignment 2</h1>
+<h1>Cloud Assignment 3</h1>
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  
   <form>
-    <button id="postQuestionsButton" >Post questions</button>
+    <button id="postQuestionsButton"  value="myvalue" onclick="onClickPostQuestionButton()">Post questions</button>
+
     <input type="text" id="postqText" name="postq">
   </form>
 
   <form1>
-    <button id="showAnswersButton"  value="myvalue" onclick="myFunction()">Show answers</button>
-    <input type="text" id="showanswerText" name="showanswer" readonly><br>
+    <button id="showAnswersButton"  value="myvalue" onclick="onClickShowAnswersButton()">Show answers</button>
+    <input type="text" id="showanswerText" name="showanswer" ><br>
   </form1>
 
+  <p id="para" value="he"></p>
+  
   <script>
-    function myFunction() {
-      var showAnswerButton = document.getElementById('showAnswersButton');
-      var showAnswerText = document.getElementById('showanswerText');
+    function onClickPostQuestionButton() {
+      
+      var postQuestionsButton = document.getElementById('postQuestionsButton');
+      var postQuestionsText = document.getElementById('postqText');
+      
       var apigClient = apigClientFactory.newClient();
+    
+      var params = {
+        // This is where any modeled request parameters should be added.
+        // The key is the parameter name, as it is defined in the API in API Gateway.
+        q: postQuestionsText.value
+        
+      };
 
-      apigClient.questionanswer1Get()
+      var body = {
+        q: postQuestionsText.value
+      };
+
+      apigClient.questionsPost(params, body)
           .then(function(result){
-            showAnswerText.value = result.data.body; 
-
+            // showAnswerText.value = result.data.body; 
+        var elem = document.getElementById('para');
+        
+        elem.innerHTML = result.data.body;
+      
           }).catch( function(result){
             // Add error callback code here.
       });
+      
     }
+
+    function onClickShowAnswersButton() {
+      
+      var showAnswerButton = document.getElementById('showAnswersButton');
+      var showAnswerText = document.getElementById('showanswerText');
+      
+      var apigClient = apigClientFactory.newClient();
+    
+      var params = {
+        // This is where any modeled request parameters should be added.
+        // The key is the parameter name, as it is defined in the API in API Gateway.
+        q: showAnswerText.value
+        
+      };
+
+      apigClient.answersGet(params)
+          .then(function(result){
+            // showAnswerText.value = result.data.body; 
+        var elem = document.getElementById('para');
+
+        elem.innerHTML = result.data.body;
+        
+          }).catch( function(result){
+            // Add error callback code here.
+      });
+      
+    }
+
   </script>
 
     <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>

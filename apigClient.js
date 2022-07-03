@@ -53,7 +53,7 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://pl79x6pgli.execute-api.us-east-1.amazonaws.com/Dev';
+    var invokeUrl = 'https://6symx04m2k.execute-api.us-east-1.amazonaws.com/Dev';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
@@ -83,57 +83,75 @@ apigClientFactory.newClient = function (config) {
     
     
     
-    apigClient.questionanswer1Get = function (params, body, additionalParams) {
+    apigClient.answersGet = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
-        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        apiGateway.core.utils.assertParametersDefined(params, ['q'], ['body']);
         
-        var questionanswer1GetRequest = {
+        var answersGetRequest = {
             verb: 'get'.toUpperCase(),
-            path: pathComponent + uritemplate('/questionanswer1').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/answers').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['q']),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(questionanswer1GetRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(answersGetRequest, authType, additionalParams, config.apiKey);
     };
     
     
-    apigClient.questionanswer1Post = function (params, body, additionalParams) {
+    apigClient.answersOptions = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
         apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
         
-        var questionanswer1PostRequest = {
-            verb: 'post'.toUpperCase(),
-            path: pathComponent + uritemplate('/questionanswer1').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
-            headers: apiGateway.core.utils.parseParametersToObject(params, []),
-            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
-            body: body
-        };
-        
-        
-        return apiGatewayClient.makeRequest(questionanswer1PostRequest, authType, additionalParams, config.apiKey);
-    };
-    
-    
-    apigClient.questionanswer1Options = function (params, body, additionalParams) {
-        if(additionalParams === undefined) { additionalParams = {}; }
-        
-        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
-        
-        var questionanswer1OptionsRequest = {
+        var answersOptionsRequest = {
             verb: 'options'.toUpperCase(),
-            path: pathComponent + uritemplate('/questionanswer1').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            path: pathComponent + uritemplate('/answers').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
             headers: apiGateway.core.utils.parseParametersToObject(params, []),
             queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
             body: body
         };
         
         
-        return apiGatewayClient.makeRequest(questionanswer1OptionsRequest, authType, additionalParams, config.apiKey);
+        return apiGatewayClient.makeRequest(answersOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.questionsPost = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['q'], ['body']);
+        
+        var questionsPostRequest = {
+            verb: 'post'.toUpperCase(),
+            path: pathComponent + uritemplate('/questions').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['q']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(questionsPostRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.questionsOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var questionsOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/questions').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(questionsOptionsRequest, authType, additionalParams, config.apiKey);
     };
     
 
